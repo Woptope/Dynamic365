@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30225.117
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicsCrm", "DynamicsCrm\DynamicsCrm.csproj", "{6AF00680-71B1-41D9-9DB6-1A2B1CA12438}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6AF00680-71B1-41D9-9DB6-1A2B1CA12438}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AF00680-71B1-41D9-9DB6-1A2B1CA12438}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AF00680-71B1-41D9-9DB6-1A2B1CA12438}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AF00680-71B1-41D9-9DB6-1A2B1CA12438}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A18B5D23-6952-4360-B80B-B63ACCF5204E}
+	EndGlobalSection
+EndGlobal
