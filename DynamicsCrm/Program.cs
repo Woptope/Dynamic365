@@ -40,27 +40,28 @@ namespace DynamicsCrm
                     Console.WriteLine("Connection failed...");
                 }
 
+                //ИЗВЛЕЧЬ ВСЕ КОНТАКТЫ, ЧЬЯ КОМПАНИЯ НАХОДИТСЯ В САМАРЕ
                 var query = new QueryExpression("contact")
                 {
                     ColumnSet = new ColumnSet("fullname"),
                     LinkEntities =
-                        {
-                            new LinkEntity
-                            {
-                                JoinOperator = JoinOperator.Inner,
-                                LinkFromAttributeName = "accountid",
-                                LinkFromEntityName = "contact",
-                                LinkToAttributeName = "accountid",
-                                LinkToEntityName = "account",
-                                LinkCriteria =
-                                    {
-                                        Conditions =
-                                        {
-                                            new ConditionExpression("address1_city", ConditionOperator.Equal, "Samara")
-                                        }
-                                    }
-                            }
-                    }
+                         {
+                             new LinkEntity
+                             {
+                                 JoinOperator = JoinOperator.Inner,
+                                 LinkFromAttributeName = "accountid",
+                                 LinkFromEntityName = "contact",
+                                 LinkToAttributeName = "accountid",
+                                 LinkToEntityName = "account",
+                                 LinkCriteria =
+                                     {
+                                         Conditions =
+                                         {
+                                             new ConditionExpression("address1_city", ConditionOperator.Equal, "Samara")
+                                         }
+                                     }
+                             }
+                     }
                 };
 
                 EntityCollection results = oServiceProxy.RetrieveMultiple(query);
@@ -70,6 +71,31 @@ namespace DynamicsCrm
                 {
                     Console.WriteLine(x.Attributes["fullname"]);
                 });
+
+
+
+                //ИЗВЛЕЧЬ ВСЕ EMAIL ЗАДАННОГО ПОЛЬЗОВАТЕЛЯ, НАПИСАННЫЕ В ОПРЕДЕЛЕННУЮ КОМПАНИЮ
+                var query2 = new QueryExpression("email")
+                {
+                    ColumnSet = new ColumnSet("messageid"),
+                    Criteria = new FilterExpression
+                    {
+                        FilterOperator = LogicalOperator.And,
+                        Conditions = { new ConditionExpression("sender", ConditionOperator.Equal, "vladimir.spider@ssauru.onmicrosoft.com"),
+                                       new ConditionExpression("torecipients", ConditionOperator.Equal, "sueburk@margiestravel.com;")
+                                     }
+                    }
+
+                };
+
+                EntityCollection results2 = oServiceProxy.RetrieveMultiple(query2);
+                Console.WriteLine("\nLIST OF MAIL'S ID:");
+                results2.Entities.ToList().ForEach(x =>
+                {
+                    Console.WriteLine(x.Attributes["messageid"]);
+
+                });
+
 
                 Console.WriteLine("ОК");
             }
