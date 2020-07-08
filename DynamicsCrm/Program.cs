@@ -42,28 +42,36 @@ namespace DynamicsCrm
 
                 var query = new QueryExpression("contact")
                 {
-                    TopCount = 15,
-                    ColumnSet = new ColumnSet("fullname")
+                    ColumnSet = new ColumnSet("fullname"),
+                    LinkEntities =
+                        {
+                            new LinkEntity
+                            {
+                                JoinOperator = JoinOperator.Inner,
+                                LinkFromAttributeName = "accountid",
+                                LinkFromEntityName = "contact",
+                                LinkToAttributeName = "accountid",
+                                LinkToEntityName = "account",
+                                LinkCriteria =
+                                    {
+                                        Conditions =
+                                        {
+                                            new ConditionExpression("address1_city", ConditionOperator.Equal, "Samara")
+                                        }
+                                    }
+                            }
+                    }
                 };
 
                 EntityCollection results = oServiceProxy.RetrieveMultiple(query);
 
-                Console.WriteLine("\n LIST OF ALL CONTACTS:");
+                Console.WriteLine("\nLIST OF CONTACTS, WHICH COMPANY'S CITY IS SAMARA:");
                 results.Entities.ToList().ForEach(x =>
                 {
                     Console.WriteLine(x.Attributes["fullname"]);
                 });
 
-                Console.WriteLine("\n LIST OF ALL ACCOUNTS:");
-                var query2 = new QueryExpression("account");
-                query2.ColumnSet.AllColumns = true;
-
-                EntityCollection results2 = oServiceProxy.RetrieveMultiple(query2);
-
-                results2.Entities.ToList().ForEach(x =>
-                {
-                    Console.WriteLine(x.Attributes["name"]);
-                });
+                Console.WriteLine("ОК");
             }
 
             catch (Exception ex)
